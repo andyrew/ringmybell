@@ -7,6 +7,7 @@ from picamera import PiCamera
 import tempfile
 from random import randint
 import twython
+import string 
  
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -57,6 +58,9 @@ def ringbell_reply(tweet):
    GPIO.output(18,GPIO.LOW)  
    time.sleep(3) 
    
+   # Creating a printable set for checking characters (emoji cause problems)
+   printset = set(string.printable)
+
    # A variable to see if the bell was rung during the tweet text
    unrung=True
    
@@ -75,15 +79,16 @@ def ringbell_reply(tweet):
    
    # Loop through characters in tweet
    for c in tweet.text:
-      subtitle=subtitle+c
-      camera.annotate_text = subtitle
-      if c=="0" or c=="O":
-         GPIO.output(18,GPIO.HIGH)
-         time.sleep(beat)
-         unrung=False
-      elif c=="-":
-         GPIO.output(18,GPIO.LOW)
-         time.sleep(beat)
+      if set(c).issubset(printset):
+         subtitle=subtitle+c
+         camera.annotate_text = subtitle
+         if c=="0" or c=="O":
+            GPIO.output(18,GPIO.HIGH)
+            time.sleep(beat)
+            unrung=False
+         elif c=="-":
+            GPIO.output(18,GPIO.LOW)
+            time.sleep(beat)
    GPIO.output(18,GPIO.LOW)
   
    # Ring if the user didn't have any 0 or - in the tweet 
