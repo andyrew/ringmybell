@@ -81,23 +81,18 @@ def ringbell_reply(tweet):
    # Loop through characters in tweet
    for c in tweet.text:
       if set(c).issubset(printset):
+         if c=="–" or c=="—": c="-"
          subtitle=subtitle+c
          camera.annotate_text = subtitle
-         if c=="0" or c=="O":
+         if c=="0" or c=="O" or c=="o":
             GPIO.output(18,GPIO.HIGH)
             time.sleep(beat)
             unrung=False
          elif c=="-":
             GPIO.output(18,GPIO.LOW)
             time.sleep(beat)
-         elif c=="–":
-            GPIO.output(18,GPIO.LOW)
-            time.sleep(beat*2)
-         elif c=="—":
-            GPIO.output(18,GPIO.LOW)
-            time.sleep(beat*3)
    GPIO.output(18,GPIO.LOW)
-  
+   
    # Ring if the user didn't have any 0 or - in the tweet 
    if unrung:
       GPIO.output(18,GPIO.HIGH)
