@@ -59,7 +59,7 @@ def ringbell_reply(tweet):
    time.sleep(5) 
    
    # Creating a printable set for checking characters (emoji cause problems)
-   printset = set(string.printable)
+   printset = set(string.printable+"–"+"—")
 
    # A variable to see if the bell was rung during the tweet text
    unrung=True
@@ -90,20 +90,22 @@ def ringbell_reply(tweet):
          elif c=="-":
             GPIO.output(18,GPIO.LOW)
             time.sleep(beat)
-         elif c=="–" or c=="—":
+         elif c=="–":
             GPIO.output(18,GPIO.LOW)
             time.sleep(beat*2)
+         elif c=="—":
+            GPIO.output(18,GPIO.LOW)
+            time.sleep(beat*3)
    GPIO.output(18,GPIO.LOW)
   
    # Ring if the user didn't have any 0 or - in the tweet 
    if unrung:
       GPIO.output(18,GPIO.HIGH)
-      time.sleep(beat)
+      time.sleep(beat*3)
       GPIO.output(18,GPIO.LOW)
-      time.sleep(beat)
-      time.sleep(beat)
+      time.sleep(beat*6)
       GPIO.output(18,GPIO.HIGH)
-      time.sleep(beat)
+      time.sleep(beat*3)
       GPIO.output(18,GPIO.LOW)
 
    # Dead space at end of recording
@@ -126,7 +128,7 @@ def ringbell_reply(tweet):
    )
    video=open(tf.name+".mp4", 'rb')
    response=twitter.upload_video(media=video, media_type='video/mp4')
-   twitter.update_status(status=replys[randint(0,len(replys)-1)]+"@"+tweet.username, media_ids=[response['media_id']], in_reply_to_status_id=tweet.id)
+   twitter.update_status(status=replys[randint(0,len(replys)-1)]+"\n@"+tweet.username, media_ids=[response['media_id']], in_reply_to_status_id=tweet.id)
    #camera.stop_preview()
    
    
