@@ -52,11 +52,11 @@ def nighttime_reply(tweet):
 def ringbell_reply(tweet):
    tf=tempfile.NamedTemporaryFile()
    beat=0.125
-   # Warning ring and three second wait
+   # Warning ring and five second wait
    GPIO.output(18,GPIO.HIGH)
    time.sleep(beat)
    GPIO.output(18,GPIO.LOW)  
-   time.sleep(3) 
+   time.sleep(5) 
    
    # Creating a printable set for checking characters (emoji cause problems)
    printset = set(string.printable)
@@ -66,7 +66,8 @@ def ringbell_reply(tweet):
    
    #camera.start_preview()
    # Subtitle 
-   camera.annotate_text_size = 30
+   camera.annotate_text_size = 48 
+   camera.resolution = (1280,720)
    subtitle = tweet.username+"\n "
    camera.annotate_text = subtitle
    
@@ -89,6 +90,9 @@ def ringbell_reply(tweet):
          elif c=="-":
             GPIO.output(18,GPIO.LOW)
             time.sleep(beat)
+         elif c=="–" or c=="—":
+            GPIO.output(18,GPIO.LOW)
+            time.sleep(beat*2)
    GPIO.output(18,GPIO.LOW)
   
    # Ring if the user didn't have any 0 or - in the tweet 
@@ -111,7 +115,7 @@ def ringbell_reply(tweet):
    time.sleep(1)
    
    # Combining video and audio into MP4
-   subprocess.call("ffmpeg -y -r 30 -i "+tf.name+".h264 -i "+tf.name+".wav -c:a aac -preset fast -strict experimental "+tf.name+".mp4", shell = True)
+   subprocess.call("ffmpeg -y -r 30 -i "+tf.name+".h264 -i "+tf.name+".wav -c:a aac -preset medium -strict experimental "+tf.name+".mp4", shell = True)
    
    # Repling to the tweet
    twitter = twython.Twython(
@@ -122,7 +126,7 @@ def ringbell_reply(tweet):
    )
    video=open(tf.name+".mp4", 'rb')
    response=twitter.upload_video(media=video, media_type='video/mp4')
-   twitter.update_status(status="@"+tweet.username+" "+replys[randint(0,len(replys)-1)], media_ids=[response['media_id']], in_reply_to_status_id=tweet.id)
+   twitter.update_status(status=replys[randint(0,len(replys)-1)]+"@"+tweet.username, media_ids=[response['media_id']], in_reply_to_status_id=tweet.id)
    #camera.stop_preview()
    
    
