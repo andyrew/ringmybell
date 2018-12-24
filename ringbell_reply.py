@@ -56,7 +56,7 @@ def ringbell_reply(tweet):
    GPIO.output(18,GPIO.HIGH)
    time.sleep(beat)
    GPIO.output(18,GPIO.LOW)  
-   time.sleep(5) 
+   time.sleep(10) 
    
    # Creating a printable set for checking characters (emoji cause problems)
    printset = set(string.printable+"–"+"—")
