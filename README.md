@@ -1,6 +1,8 @@
 # ringmybell
+Tweet @ringandysbell with a pattern of 0's and -'s (zeros and hyphens) and a vintage school bell in my livingroom will ring the pattern (zeros are rings, hyphens are rests). A video will be recorded and will @ringandysbell will reply to your tweet with a video.
+https://twitter.com/ringandysbell
 
-Written for raspberry pi with python3
+The software is written for raspberry pi with python3
 * You might need to install some packages, including twython, RPi.GPIO, picamera
 * Make sure twython is 3.4.0 or newer (this is when video upload was supported and some RPi packages are older versions)
 * Make sure you have your picamera enabled using raspi-config.
