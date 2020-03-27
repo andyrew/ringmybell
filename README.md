@@ -21,7 +21,7 @@ python3 stream_queue.py
 I use cron to start the program at startup. To edit your crontab file
 ~~~~
 chron -e
-~~~
+~~~~
 then add:
 ~~~~
 @reboot /usr/bin/python3 /home/pi/ringmybell/stream_queue.py > /home/pi/ringmybell/cron.log 2>&1 &
