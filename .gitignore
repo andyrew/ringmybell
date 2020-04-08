@@ -1,5 +1,6 @@
 # Don't copy my authentication file
-auth.py
+ringmybell/auth.py
+__pycache__
 
 # Compiled source #
 ###################
