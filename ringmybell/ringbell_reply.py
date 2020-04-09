@@ -9,6 +9,10 @@ from random import randint
 import twython
 import string
 import json
+import time
+import board
+from adafruit_ht16k33.segments import Seg14x4
+
 
 home = os.path.expanduser("~")
 auth_file = home + "/.twitterkey/auth.json"
@@ -20,6 +24,12 @@ with open(auth_file, 'r') as af:
     access_token = key["access_token"]
     access_token_secret = key["access_token_secret"]
 
+#setup alphanumeric displays
+i2c = board.I2C()
+display1 = Seg14x4(i2c, address=0x70)
+display2 = Seg14x4(i2c, address=0x71)
+display3 = Seg14x4(i2c, address=0x72)
+display4 = Seg14x4(i2c, address=0x73)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -54,7 +64,18 @@ def nighttime_reply(tweet):
    )
    twitter.update_status(status="@"+tweet.username+" I'm off for the night. I'll ring your tweet at 7:30 AM (pacific).", in_reply_to_status_id=tweet.id) 
 
+def display_name(username):
+   #uses four adafruit alphanumeric displays (four characters each) to display the username on the bell while ringing
+   #convert username to 16 character string (uppercase is used for legibility on the display)
+   name = f'{username:16}'.upper()
+   #show four characters of string on each display
+   display1.print(name[0:4])
+   display2.print(name[4:8])
+   display3.print(name[8:12])
+   display4.print(name[12:16])
+
 def ringbell_reply(tweet):
+   display_name(tweet.username)
    tf=tempfile.NamedTemporaryFile()
    beat=0.125
    # Warning ring and five second wait
@@ -67,13 +88,13 @@ def ringbell_reply(tweet):
    printset = set(string.printable+"–"+"—")
 
    # A variable to see if the bell was rung during the tweet text
-   unrung=True
+   unrung = True
 
    #camera.start_preview()
    # Subtitle
    camera.annotate_text_size = 48
    camera.resolution = (1280,720)
-   subtitle = tweet.username+"\n "
+   subtitle = tweet.username + "\n "
    camera.annotate_text = subtitle
 
    # Start camera and audio recording
@@ -130,3 +151,4 @@ def ringbell_reply(tweet):
    response=twitter.upload_video(media=video, media_type='video/mp4')
    twitter.update_status(status=replys[randint(0,len(replys)-1)]+"\n@"+tweet.username, media_ids=[response['media_id']], in_reply_to_status_id=tweet.id)
    #camera.stop_preview()
+   display_name("")

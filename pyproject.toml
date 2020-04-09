@@ -10,6 +10,7 @@ python = "^3.7"
 twython = "^3.8.2"
 "rpi.gpio" = "^0.7.0"
 picamera = "^1.13"
+adafruit-circuitpython-ht16k33 = "^4.1.0"
 
 [tool.poetry.dev-dependencies]
 

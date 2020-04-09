@@ -1,5 +1,58 @@
 [[package]]
 category = "main"
+description = "CircuitPython APIs for non-CircuitPython versions of Python such as CPython on Linux and MicroPython."
+name = "adafruit-blinka"
+optional = false
+python-versions = ">=3.4.0"
+version = "4.3.0"
+
+[package.dependencies]
+Adafruit-PlatformDetect = ">=2.5.0"
+Adafruit-PureIO = ">=1.1.0"
+pyftdi = ">=0.40.0"
+sysv_ipc = "*"
+
+[[package]]
+category = "main"
+description = "CircuitPython bus device classes to manage bus sharing."
+name = "adafruit-circuitpython-busdevice"
+optional = false
+python-versions = "*"
+version = "4.3.0"
+
+[package.dependencies]
+Adafruit-Blinka = "*"
+
+[[package]]
+category = "main"
+description = "CircuitPython library for HT16K33 LED matrices and segment displays."
+name = "adafruit-circuitpython-ht16k33"
+optional = false
+python-versions = "*"
+version = "4.1.0"
+
+[package.dependencies]
+Adafruit-Blinka = "*"
+adafruit-circuitpython-busdevice = "*"
+
+[[package]]
+category = "main"
+description = "Platform detection for use by libraries like Adafruit-Blinka."
+name = "adafruit-platformdetect"
+optional = false
+python-versions = ">=3.4.0"
+version = "2.5.0"
+
+[[package]]
+category = "main"
+description = "Pure python (i.e. no native extensions) access to Linux IO including I2C and SPI.  Drop in replacement for smbus and spidev modules."
+name = "adafruit-pureio"
+optional = false
+python-versions = ">=3.4.0"
+version = "1.1.0"
+
+[[package]]
+category = "main"
 description = "Python package for providing Mozilla's CA Bundle."
 name = "certifi"
 optional = false
@@ -50,6 +103,34 @@ test = ["coverage", "pytest", "mock", "pillow", "numpy"]
 
 [[package]]
 category = "main"
+description = "FTDI device driver (pure Python)"
+name = "pyftdi"
+optional = false
+python-versions = ">=3.5"
+version = "0.50.0"
+
+[package.dependencies]
+pyserial = ">=3.0"
+pyusb = ">=1.0.0"
+
+[[package]]
+category = "main"
+description = "Python Serial Port Extension"
+name = "pyserial"
+optional = false
+python-versions = "*"
+version = "3.4"
+
+[[package]]
+category = "main"
+description = "Python USB access module"
+name = "pyusb"
+optional = false
+python-versions = "*"
+version = "1.0.2"
+
+[[package]]
+category = "main"
 description = "Python HTTP for Humans."
 name = "requests"
 optional = false
@@ -91,6 +172,15 @@ version = "0.7.0"
 
 [[package]]
 category = "main"
+description = "System V IPC primitives (semaphores, shared memory and message queues) for Python"
+marker = "platform_system != \"Windows\" and platform_machine != \"mips\""
+name = "sysv-ipc"
+optional = false
+python-versions = "*"
+version = "1.0.1"
+
+[[package]]
+category = "main"
 description = "Actively maintained, pure Python wrapper for the Twitter API. Supports both normal and streaming Twitter APIs"
 name = "twython"
 optional = false
@@ -115,10 +205,25 @@ secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "cer
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 
 [metadata]
-content-hash = "e4dc56096be24f88193d060f03445c70ef4903e8577a5fbce2be3a4db8a1776e"
+content-hash = "12d6f61ea92b3ed13d18516778268f8bcb61230b3962ba446d12611e3ab1cb82"
 python-versions = "^3.7"
 
 [metadata.files]
+adafruit-blinka = [
+    {file = "Adafruit-Blinka-4.3.0.tar.gz", hash = "sha256:1254c70430f7dfb4e0a74825d040bcab2d01cedf91e480f7fb580fe30aa32570"},
+]
+adafruit-circuitpython-busdevice = [
+    {file = "adafruit-circuitpython-busdevice-4.3.0.tar.gz", hash = "sha256:3a1649478bfe8772f90f1867f5a244e0957d1885433dc431e11d39096647c677"},
+]
+adafruit-circuitpython-ht16k33 = [
+    {file = "adafruit-circuitpython-ht16k33-4.1.0.tar.gz", hash = "sha256:7ce20d2b918512c38d3f45742e3e99a25180bfb9f6d74b0c537ecfd46920bfeb"},
+]
+adafruit-platformdetect = [
+    {file = "Adafruit-PlatformDetect-2.5.0.tar.gz", hash = "sha256:bf446f8365cdf0a87d4bf6620e70bd59da99b0523c2111f0dc74a1155236ff61"},
+]
+adafruit-pureio = [
+    {file = "Adafruit_PureIO-1.1.0.tar.gz", hash = "sha256:7f3384a2cedb3f9d1b0d3f0f8424e47ac53157235514d8d936703139c63cfd45"},
+]
 certifi = [
     {file = "certifi-2020.4.5.1-py2.py3-none-any.whl", hash = "sha256:1d987a998c75633c40847cc966fcf5904906c920a7f17ef374f5aa4282abd304"},
     {file = "certifi-2020.4.5.1.tar.gz", hash = "sha256:51fcb31174be6e6664c5f69e3e1691a2d72a1a12e90f872cbdb1567eb47b6519"},
@@ -138,6 +243,17 @@ oauthlib = [
 picamera = [
     {file = "picamera-1.13.tar.gz", hash = "sha256:890815aa01e4d855a6a95dd3ad0953b872a6b954982106407df0c5a31a163e50"},
 ]
+pyftdi = [
+    {file = "pyftdi-0.50.0-py36-none-any.whl", hash = "sha256:be03977320abb31ab8be35f95bdd82fdfbef22288a63e78c0676353e06a73099"},
+    {file = "pyftdi-0.50.0.tar.gz", hash = "sha256:7d617fbf4973452f73349383454aaec6eee298bb0789686c34b9c346c717d7db"},
+]
+pyserial = [
+    {file = "pyserial-3.4-py2.py3-none-any.whl", hash = "sha256:e0770fadba80c31013896c7e6ef703f72e7834965954a78e71a3049488d4d7d8"},
+    {file = "pyserial-3.4.tar.gz", hash = "sha256:6e2d401fdee0eab996cf734e67773a0143b932772ca8b42451440cfed942c627"},
+]
+pyusb = [
+    {file = "pyusb-1.0.2.tar.gz", hash = "sha256:4e9b72cc4a4205ca64fbf1f3fff39a335512166c151ad103e55c8223ac147362"},
+]
 requests = [
     {file = "requests-2.23.0-py2.py3-none-any.whl", hash = "sha256:43999036bfa82904b6af1d99e4882b560e5e2c68e5c4b0aa03b655f3d7d73fee"},
     {file = "requests-2.23.0.tar.gz", hash = "sha256:b3f43d496c6daba4493e7c431722aeb7dbc6288f52a6e04e7b6023b0247817e6"},
@@ -149,6 +265,11 @@ requests-oauthlib = [
 ]
 "rpi.gpio" = [
     {file = "RPi.GPIO-0.7.0.tar.gz", hash = "sha256:7424bc6c205466764f30f666c18187a0824077daf20b295c42f08aea2cb87d3f"},
+]
+sysv-ipc = [
+    {file = "sysv_ipc-1.0.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:a67fc5b7a3dd5fc9c50776de0c65a44eb776d29bb88364dedb1fb1149e53a1f1"},
+    {file = "sysv_ipc-1.0.1-cp36-cp36m-macosx_10_6_intel.whl", hash = "sha256:2b2b8491764845d06a9d5731ebe67f12fbe0c35967ac7f2bbe55ff24cb302405"},
+    {file = "sysv_ipc-1.0.1.tar.gz", hash = "sha256:8eff10dd17789ddf21b422ce46ae0f6420088902a88e4296cb805cf2fde8b4dc"},
 ]
 twython = [
     {file = "twython-3.8.2-py3-none-any.whl", hash = "sha256:a469d673fdd20d1c346e9b9f784212db521aa611bbdfc4912229ab701b36002b"},
